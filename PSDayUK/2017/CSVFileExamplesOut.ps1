@@ -5,7 +5,7 @@ Get-Service | Select-Object Name,DisplayName,Status,StartType | Export-CSV .\Dat
 # --- Export to CSV with no Type Information
 Get-Service | Select-Object Name,DisplayName,Status,StartType | Export-CSV .\Data\Example5.csv -NoTypeInformation
 
-# --- What's ConvertFrom-CSV and ConvertTo-CSV?
+# --- What's ConvertFrom-CSV and ConvertTo-CSV? For working with CSV data within your PowerShell session
 
 # --- Use a native Windows tool to produce CSV output
 whoami /GROUPS /FO CSV
