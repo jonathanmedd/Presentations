@@ -20,7 +20,7 @@ $a -replace "This is line","We are at section"
 # --- Grab the first 3 lines
 Get-Content .\Data\Example1.txt -TotalCount 3
 
-# --- Grab the first 3 lines
+# --- Grab the last 3 lines
 Get-Content .\Data\Example1.txt -Tail 3
 
 # --- tail -f equivalent
