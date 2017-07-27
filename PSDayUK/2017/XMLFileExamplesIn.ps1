@@ -34,6 +34,15 @@ $XML1.SelectSingleNode('//food[name="Strawberry Belgian Waffles"]')
 
 $XML1.SelectNodes('//food[calories="900"]')
 
+# --- Use Object Notation to navigate the XML tree
+$XML2.breakfast_menu.food
+
+$XML2.breakfast_menu.food[2]
+
+$XML2.breakfast_menu.food | where name -eq "Strawberry Belgian Waffles"
+
+$XML2.breakfast_menu.food | where calories -eq 900
+
 
 # --- Or use a Here-String. It's possible your XML data may not come from a file, perhaps a WebService
 
