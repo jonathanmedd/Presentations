@@ -55,6 +55,10 @@ This is *line* 9
 "@
 Set-Content -Path .\Data\Example5.txt -Value $text -Encoding UTF8
 
+# --- Set a default parameter value so that encoding is always UTF8
+$PSDefaultParameterValues["Out-File:Encoding"] = "UTF8"
+$text | Out-File -FilePath .\Data\Example6.txt
+
 # --- Create a file with UTF8NoBOM
 $Data = Get-Content .\Data\Example5.txt
 $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
