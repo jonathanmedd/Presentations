@@ -46,7 +46,7 @@ $ExcelParams = @{
     Show = $true
 }
 
-$data | Export-Excel @ExcelParams -TableName Processes -ExcelChartDefinition $Chart
+$Data | Export-Excel @ExcelParams -TableName Processes -ExcelChartDefinition $Chart
 
 
 #--- Copy worksheet data from one spreadsheet to another
