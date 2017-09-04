@@ -29,6 +29,9 @@ $ExcelParams = @{
     PhoneNr3  =  '+3244444444'
 } | Export-Excel @ExcelParams -NoNumberConversion *
 
+# --- Tidy up check
+if (Get-Item .\Data\Example5.xlsx) {Remove-Item .\Data\Example5.xlsx -Force -Confirm:$false}
+
 # --- Get process data and include a chart
 $Data = Invoke-Sum (Get-Process) company handles,pm,VirtualMemorySize
 
@@ -47,11 +50,3 @@ $ExcelParams = @{
 }
 
 $Data | Export-Excel @ExcelParams -TableName Processes -ExcelChartDefinition $Chart
-
-
-#--- Copy worksheet data from one spreadsheet to another
-Copy-ExcelWorkSheet -SourceWorkSheet 'Services' -SourceWorkbook .\Data\Example3.xlsx -DestinationWorkSheet 'New Services Data' -DestinationWorkbook .\Data\Example6.xlsx -Show
-
-# --- Generate a spreadsheet with data from a table in Wikipedia
-# --- The cmdlet name is possibly a little misleading
-Import-Html -URL https://en.wikipedia.org/wiki/List_of_Buffy_the_Vampire_Slayer_episodes -Index 1
