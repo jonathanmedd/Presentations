@@ -28,3 +28,6 @@ $StringTemplate1 = @'
 $ConvertResult = $AddressData | ConvertFrom-String -TemplateContent $StringTemplate1
 
 $ConvertResult
+
+# --- Then we can use it like any other PSCustomObject
+$ConvertResult | Select-Object Name,Phone
