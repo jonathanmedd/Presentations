@@ -2,6 +2,8 @@
 Get-Command -Module ImportExcel
 
 # --- Import data from a worksheet in an Excel file
+Invoke-Item .\Data\Example1.xlsx
+
 $Data = Import-Excel -WorkSheetname Sheet1 -Path .\Data\Example1.xlsx
 
 $Data

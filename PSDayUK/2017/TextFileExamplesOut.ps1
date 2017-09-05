@@ -14,19 +14,7 @@ This is *line* 9
 Out-File -FilePath .\Data\Example3.txt -InputObject $text
 
 # --- Set-Content
-$text = @"
-This is *line* 0
-This is *line* 1
-This is *line* 2
-This is *line* 3
-This is *line* 4
-This is *line* 5
-This is *line* 6
-This is *line* 7
-This is *line* 8
-This is *line* 9
-"@
-Set-Content -Path .\Data\Example6.txt -Value $text
+Set-Content -Path .\Data\Example4.txt -Value $text
 
 Get-Content -Path .\Data\Example4.txt
 
@@ -62,7 +50,7 @@ $text | Out-File -FilePath .\Data\Example6.txt
 # --- Create a file with UTF8NoBOM
 $Data = Get-Content .\Data\Example5.txt
 $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
-[System.IO.File]::WriteAllLines('.\Data\Example5.txt', $Data, $Utf8NoBomEncoding)
+[System.IO.File]::WriteAllLines('C:\Users\Jonathan\Documents\Development\Presentations\PSDayUK\2017\Data\Example5.txt', $Data, $Utf8NoBomEncoding)
 
 # --- Out-File vs Set-Content - what's the difference?
 # --- 1) Locking. Out-File: another app can read the file, Set-Content another app cannot

@@ -39,7 +39,7 @@ $b.Length
 # --- Consider not using Get-Content with very large files, because it reads the entire file into memory. 
 # --- Instead, read your file from disk one line at a time and work with each line
 # --- Instead of caching the entire file in RAM, you're reading it off disk one line at a time.
-$c = New-Object System.IO.StreamReader .\Data\Example1.txt
+$c = New-Object System.IO.StreamReader C:\Users\Jonathan\Documents\Development\Presentations\PSDayUK\2017\Data\Example1.txt
 while ($line = $c.ReadLine()) {
   
    $line -replace "This is line","We are at section"
@@ -47,4 +47,4 @@ while ($line = $c.ReadLine()) {
 $c.close()
 
 # --- Search for string in text files
-Select-String -Path .\Data\* -Pattern "3"
+Select-String -Path .\Data\*.txt -Pattern "3"

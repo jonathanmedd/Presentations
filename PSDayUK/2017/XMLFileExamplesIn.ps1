@@ -5,6 +5,8 @@ Get-Command *XML* -CommandType Cmdlet
 # --- Create an XML based representation of an object and store it in a file
 Get-ChildItem .\Data | Export-Clixml .\Data\Example1.XML
 
+Invoke-Item .\Data\Example1.XML
+
 Import-Clixml .\Data\Example1.XML
 
 # --- Type of object is maintained
@@ -14,8 +16,6 @@ Import-Clixml .\Data\Example1.XML | Get-Member
 # --- The results stays in the PowerShell session, not output to a file
 $XML0 = Get-ChildItem .\Data | ConvertTo-Xml
 $XML0
-
-$XML0.Objects.Object.Property
 
 # --- Create an XML document object then load data from a file
 $XML1 = New-Object System.Xml.XmlDocument
@@ -42,8 +42,6 @@ $XML1.SelectSingleNode('//food[name="Strawberry Belgian Waffles"]')
 $XML1.SelectNodes('//food[calories="900"]')
 
 # --- Use Select-XML and XPath to navigate the XML tree. This returns any 'food' nodes
-$XML1 | Select-XML -XPath '//food'
-
 # --- Expand the nodes
 $XML1 | Select-XML -XPath '//food' | Select-Object -ExpandProperty Node
 

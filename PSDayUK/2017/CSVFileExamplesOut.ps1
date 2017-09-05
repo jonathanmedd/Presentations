@@ -1,6 +1,8 @@
 # --- Export to CSV
 Get-Service | Select-Object Name,DisplayName,Status,StartType | Export-CSV .\Data\Example4.csv
 
+Invoke-Item .\Data\Example4.csv
+
 # --- What was that Type information about in row 1?
 # --- Export to CSV with no Type Information
 Get-Service | Select-Object Name,DisplayName,Status,StartType | Export-CSV .\Data\Example5.csv -NoTypeInformation
