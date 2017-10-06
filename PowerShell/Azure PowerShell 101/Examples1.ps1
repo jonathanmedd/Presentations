@@ -126,8 +126,13 @@ New-AzureRmResourceGroupDeployment -Name ExampleDeployment -ResourceGroupName AR
 
 # --- ARM templates are idemopotent, so if change something in the Storage Account
 # --- Note - no pipeline input for Set-AzureRmStorageAccount!
-Get-AzureRmStorageAccount -ResourceGroupName ARMTemplates | select -First 1 
-Set-AzureRmStorageAccount -SkuName Standard_LRS
+$storageAccountName = (Get-AzureRmStorageAccount -ResourceGroupName ARMTemplates).StorageAccountName
+Set-AzureRmStorageAccount -ResourceGroupName ARMTemplates -Name $storageAccountName -SkuName Standard_LRS
+
+# --- Run the deployment again
+New-AzureRmResourceGroupDeployment -Name ExampleDeployment -ResourceGroupName ARMTemplates `
+-TemplateFile .\ARM\storageaccountdeploy.json `
+-TemplateParameterFile .\ARM\storageaccountdeploy.parameters.json
 
 
 # --- https://twitter.com/Steve_MSFT/status/912721369510567936/photo/1
