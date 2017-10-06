@@ -17,7 +17,7 @@
       }
     },
     "variables": {
-      "storageAccountName": "[('standardsa')]"
+      "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]"
     },
     "resources": [
       {
