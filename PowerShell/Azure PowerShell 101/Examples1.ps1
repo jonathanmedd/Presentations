@@ -50,9 +50,38 @@ $nsgRuleRDP = New-AzureRmNetworkSecurityRuleConfig -Name myNetworkSecurityGroupR
 -Direction Inbound -Priority 1000 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * `
 -DestinationPortRange 3389 -Access Allow
 
-# Create a network security group
-$nsg = New-AzureRmNetworkSecurityGroup -ResourceGroupName myResourceGroup -Location EastUS `
--Name myNetworkSecurityGroup -SecurityRules $nsgRuleRDP,$nsgRuleWeb
+# --- Create a network security group
+$nsg = New-AzureRmNetworkSecurityGroup -ResourceGroupName Azure101 -Location UKSouth `
+-Name myNetworkSecurityGroup -SecurityRules $nsgRuleRDP
+
+# --- Create a virtual network card and associate with public IP address and NSG
+# --- Look at the IDs
+$vnet.Subnets[0].Id
+$pip.Id
+$nsg.Id
+
+# --- Create the NIC
+$nic = New-AzureRmNetworkInterface -Name myNic -ResourceGroupName Azure101 -Location UKSouth `
+-SubnetId $vnet.Subnets[0].Id -PublicIpAddressId $pip.Id -NetworkSecurityGroupId $nsg.Id
+
+
+# --- Create a credential object to use for the Guest OS
+$securePassword = ConvertTo-SecureString "SuperMario2017" -AsPlainText -Force
+$guestOSCred = New-Object System.Management.Automation.PSCredential ("jmedd", $securePassword)
+
+# --- How do I tell what VM Sizes are available?
+$resources = Get-AzureRmResourceProvider -ProviderNamespace Microsoft.Compute
+$resources.ResourceTypes.Where{($_.ResourceTypeName -eq 'virtualMachines')}.Locations
+
+Get-AzureRmVmSize -Location "UKSouth" | Sort-Object Name | ft Name, NumberOfCores, MemoryInMB, MaxDataDiskCount -AutoSize
+
+
+# Create a virtual machine configuration
+$vmConfig = New-AzureRmVMConfig -VMName AzureDemo101 -VMSize Standard_DS2 | `
+Set-AzureRmVMOperatingSystem -Windows -ComputerName myVM -Credential $guestOSCred | `
+Set-AzureRmVMSourceImage -PublisherName MicrosoftWindowsServer -Offer WindowsServer `
+-Skus 2016-Datacenter -Version latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
+
 
 # --- Rubbish error messages
 # --- Create a SQL Server which already exists in somebody elese's subscription
