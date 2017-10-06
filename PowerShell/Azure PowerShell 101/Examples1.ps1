@@ -117,6 +117,12 @@ New-AzureRmSqlDatabase -ResourceGroupName "532" -ServerName "532test" -DatabaseN
 # --- Create another Resource Group
 New-AzureRmResourceGroup -Name ARMTemplates -Location UKSouth
 
+# --- Deploy from the ARM template
+# --- Note: in this example I have the JSON files local, however it is possible to
+# --- deploy straight from GitHub with the parameters TemplateURI and TemplateParameterUri
+New-AzureRmResourceGroupDeployment -Name ExampleDeployment -ResourceGroupName ARMTemplates `
+-TemplateFile .\ARM\storageaccountdeploy.json `
+-TemplateParameterFile .\ARM\storageaccountdeploy.parameters.json
 
 
 # --- https://twitter.com/Steve_MSFT/status/912721369510567936/photo/1
