@@ -64,6 +64,9 @@ $nsg.Id
 $nic = New-AzureRmNetworkInterface -Name myNic -ResourceGroupName Azure101 -Location UKSouth `
 -SubnetId $vnet.Subnets[0].Id -PublicIpAddressId $pip.Id -NetworkSecurityGroupId $nsg.Id
 
+# --- Create the Storage Account - Not needed anymore with managed disks
+#$storageAccount = New-AzureRmStorageAccount -ResourceGroupName Azure101 -Name storageaccountazure101 -Type Premium_LRS -Location UKSouth
+
 
 # --- Create a credential object to use for the Guest OS
 $securePassword = ConvertTo-SecureString "SuperMario2017" -AsPlainText -Force
@@ -75,13 +78,16 @@ $resources.ResourceTypes.Where{($_.ResourceTypeName -eq 'virtualMachines')}.Loca
 
 Get-AzureRmVmSize -Location "UKSouth" | Sort-Object Name | ft Name, NumberOfCores, MemoryInMB, MaxDataDiskCount -AutoSize
 
-
 # Create a virtual machine configuration
-$vmConfig = New-AzureRmVMConfig -VMName AzureDemo101 -VMSize Standard_DS2 | `
-Set-AzureRmVMOperatingSystem -Windows -ComputerName myVM -Credential $guestOSCred | `
+$vmConfig = New-AzureRmVMConfig -VMName AzureDemo101 -VMSize Standard_A1 | `
+Set-AzureRmVMOperatingSystem -Windows -ComputerName Azure101 -Credential $guestOSCred | `
 Set-AzureRmVMSourceImage -PublisherName MicrosoftWindowsServer -Offer WindowsServer `
 -Skus 2016-Datacenter -Version latest | Add-AzureRmVMNetworkInterface -Id $nic.Id
 
+$vmConfig
+
+# --- Create the VM!
+New-AzureRmVM -ResourceGroupName Azure101 -Location UKSouth -VM $vmConfig
 
 # --- Rubbish error messages
 # --- Create a SQL Server which already exists in somebody elese's subscription
@@ -108,7 +114,8 @@ New-AzureRmSqlDatabase -ResourceGroupName "532" -ServerName "532test" -DatabaseN
 
 # --- ARM Template
 
-
+# --- Create another Resource Group
+New-AzureRmResourceGroup -Name ARMTemplates -Location UKSouth
 
 
 
