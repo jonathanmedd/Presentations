@@ -180,3 +180,10 @@ powershell
 
 # --- https://twitter.com/Steve_MSFT/status/912721369510567936/photo/1
 # --- https://twitter.com/Steve_MSFT/status/912720032764895232/photo/1
+
+# --- Experimental
+docker run -it azuresdk/azure-powershell-core-experiments
+
+Login-AzureRmAccount
+
+New-AZVM -Name jmtest101 -ResourceGroupName Azure101
