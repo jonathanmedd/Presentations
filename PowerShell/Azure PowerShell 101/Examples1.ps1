@@ -126,8 +126,7 @@ $ip = Invoke-RestMethod http://ipinfo.io/json | Select-Object -ExpandProperty ip
 New-AzureRmSqlServerFirewallRule -ResourceGroupName "SQLDemo" -ServerName "532test" `
  -FirewallRuleName "Rule01" -StartIpAddress $ip -EndIpAddress $ip
 
-# --- Run a query against the database
-# --- Install SQL MGMT tools Invoke-SQLQuery -SQLServer 532test.database.windows.net -SQLCatalog AdventureWorksLT -SQLQuery "select * from SalesLT.ProductCategory" -Credential $cred
+# --- Use Visual Studio Express SQL Browser to view the database
 
 
  
@@ -156,6 +155,30 @@ New-AzureRmResourceGroupDeployment -Name ExampleDeployment -ResourceGroupName AR
 -TemplateParameterFile .\ARM\storageaccountdeploy.parameters.json
 
 
+# --- Azure Cloud PowerShell Demo
+
+
+cd 'Visual Studio Enterprise with MSDN'
+cd .\ResourceGroups\
+
+Get-AzureRmResourceGroup
+
+# --- Other cool things
+Get-CloudDrive
+
+git --version
+
+vim
+
+# --- PSCore6 in PowerShell Cloudshell
+$PSVersionTable
+
+& 'C:\Program Files\PowerShell\6.0.0-beta.7\powershell.exe'
+
+$PSVersionTable
+
+# --- PowerShell in Bash Cloud Shell?
+
+
 # --- https://twitter.com/Steve_MSFT/status/912721369510567936/photo/1
 # --- https://twitter.com/Steve_MSFT/status/912720032764895232/photo/1
-
