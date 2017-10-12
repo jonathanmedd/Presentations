@@ -89,27 +89,48 @@ $vmConfig
 # --- Create the VM!
 New-AzureRmVM -ResourceGroupName Azure101 -Location UKSouth -VM $vmConfig
 
+# --- Create a Blob Storage Container
+# --- First of create a Storage Account
+New-AzureRmStorageAccount -ResourceGroupName "Azure101" -AccountName "storageaccountabcd101" -Location "UKSouth" -SkuName "Standard_GRS"
+
+# --- Nothing returned as an AzureRM cmdlet for creating a Storage Container
+Get-Command *StorageContainer*
+
+# --- Set the 'current' Storage Account
+# --- Note the weird response of the name
+Set-AzureRmCurrentStorageAccount -ResourceGroupName "Azure101" -Name "storageaccountabcd101"
+
+# --- Now we can create the Storage Container with a cmdlet from the Classic module
+New-AzureStorageContainer -Name test01
+
 # --- Rubbish error messages
 # --- Create a SQL Server which already exists in somebody elese's subscription
-New-AzureRmSqlServer -ResourceGroupName "532" -Location "UKSouth" -ServerName "Server01" -ServerVersion "12.0" -SqlAdministratorCredentials $cred
+New-AzureRmSqlServer -ResourceGroupName "Azure101" -Location "UKSouth" -ServerName "Server01" -ServerVersion "12.0" -SqlAdministratorCredentials $cred
 
 # --- Generates this error:
 # --- New-AzureRmSqlServer - Long running operation failed with status 'Failed'
 # --- Not very helpful!
 
 # --- The SQL Server name needs to be unique across Azure xxxx.database.windows.net
-New-AzureRmSqlServer -ResourceGroupName "532" -Location "UKSouth" -ServerName "532test" -ServerVersion "12.0" -SqlAdministratorCredentials $cred
+New-AzureRmResourceGroup -Name "SQLDemo" -Location UKSouth
+New-AzureRmSqlServer -ResourceGroupName "SQLDemo" -Location "UKSouth" -ServerName "532test" -ServerVersion "12.0" -SqlAdministratorCredentials $cred
 
 # --- Create a database
-New-AzureRmSqlDatabase -ResourceGroupName "532" -ServerName "532test" -DatabaseName "Database01"
+New-AzureRmSqlDatabase -ResourceGroupName "SQLDemo" -ServerName "532test" -DatabaseName "Database01" -SampleName AdventureWorksLT
 
 # --- Create a SQL Firewall Rule
-#New-AzureRmSqlServerFirewallRule
+# --- Get current public IP
+$ip = Invoke-RestMethod http://ipinfo.io/json | Select-Object -ExpandProperty ip
+
+# --- Create a SQL FirewallRule for the current IP
+New-AzureRmSqlServerFirewallRule -ResourceGroupName "SQLDemo" -ServerName "532test" `
+ -FirewallRuleName "Rule01" -StartIpAddress $ip -EndIpAddress $ip
+
+# --- Run a query against the database
+# --- Install SQL MGMT tools Invoke-SQLQuery -SQLServer 532test.database.windows.net -SQLCatalog AdventureWorksLT -SQLQuery "select * from SalesLT.ProductCategory" -Credential $cred
 
 
-
-
-
+ 
 
 
 # --- ARM Template
