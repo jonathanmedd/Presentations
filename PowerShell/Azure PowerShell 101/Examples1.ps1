@@ -76,6 +76,7 @@ $guestOSCred = New-Object System.Management.Automation.PSCredential ("jmedd", $s
 $resources = Get-AzureRmResourceProvider -ProviderNamespace Microsoft.Compute
 $resources.ResourceTypes.Where{($_.ResourceTypeName -eq 'virtualMachines')}.Locations
 
+# --- Note in some places you use them, they may not have spaces!
 Get-AzureRmVmSize -Location "UKSouth" | Sort-Object Name | ft Name, NumberOfCores, MemoryInMB, MaxDataDiskCount -AutoSize
 
 # Create a virtual machine configuration
@@ -87,7 +88,7 @@ Set-AzureRmVMSourceImage -PublisherName MicrosoftWindowsServer -Offer WindowsSer
 $vmConfig
 
 # --- Create the VM!
-New-AzureRmVM -ResourceGroupName Azure101 -Location UKSouth -VM $vmConfig
+New-AzureRmVM -ResourceGroupName Azure101 -Location UKSouth -VM $vmConfig -WhatIf
 
 # --- Create a Blob Storage Container
 # --- First of create a Storage Account
