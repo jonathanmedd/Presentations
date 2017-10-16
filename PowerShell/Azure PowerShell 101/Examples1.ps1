@@ -172,6 +172,7 @@ Get-CloudDrive
 
 git --version
 
+cd C:\Users\ContainerAdministrator\clouddrive
 vim
 
 # --- PSCore6 in PowerShell Cloudshell
@@ -192,4 +193,9 @@ docker run -it azuresdk/azure-powershell-core-experiments
 
 Login-AzureRmAccount
 
-New-AZVM -Name jmtest101 -ResourceGroupName Azure101
+# --- Fill out the PublicIpAddressName
+$PublicIPAddress = #"mypublicdns16408418002"
+
+New-AZVM -name jmtest101323 -virtualnetworkname vNET101 -location uksouth -securitygroupname myNetworkSecurityGroup `
+  -PublicIpAddressName $PublicIPAddress #-ResourceGroupName Azure101 -SubnetName Azure101
+
