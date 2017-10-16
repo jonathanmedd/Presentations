@@ -117,7 +117,7 @@ New-AzureRmSqlServer -ResourceGroupName "Azure101" -Location "UKSouth" -ServerNa
 # --- The SQL Server name needs to be unique across Azure xxxx.database.windows.net
 # --- Already prepared earlier because it takes a while
 # --- New-AzureRmResourceGroup -Name "SQLDemo" -Location UKSouth
-# --- New-AzureRmSqlServer -ResourceGroupName "SQLDemo" -Location "UKSouth" -ServerName "532test" -ServerVersion "12.0" -SqlAdministratorCredentials $cred
+# --- New-AzureRmSqlServer -ResourceGroupName "SQLDemo" -Location "UKSouth" -ServerName "532test" -ServerVersion "12.0" -SqlAdministratorCredentials $sqlCred
 
 # --- Create a database
 New-AzureRmSqlDatabase -ResourceGroupName "SQLDemo" -ServerName "532test" -DatabaseName "Database01" -SampleName AdventureWorksLT
