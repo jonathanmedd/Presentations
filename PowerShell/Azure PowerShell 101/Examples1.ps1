@@ -106,15 +106,18 @@ New-AzureStorageContainer -Name test01
 
 # --- Rubbish error messages
 # --- Create a SQL Server which already exists in somebody elese's subscription
-New-AzureRmSqlServer -ResourceGroupName "Azure101" -Location "UKSouth" -ServerName "Server01" -ServerVersion "12.0" -SqlAdministratorCredentials $cred
+$securePassword = ConvertTo-SecureString "SuperMario2017" -AsPlainText -Force
+$sqlCred = New-Object System.Management.Automation.PSCredential ("jmedd", $securePassword)
+New-AzureRmSqlServer -ResourceGroupName "Azure101" -Location "UKSouth" -ServerName "Server01" -ServerVersion "12.0" -SqlAdministratorCredentials $sqlCred
 
 # --- Generates this error:
 # --- New-AzureRmSqlServer - Long running operation failed with status 'Failed'
 # --- Not very helpful!
 
 # --- The SQL Server name needs to be unique across Azure xxxx.database.windows.net
-New-AzureRmResourceGroup -Name "SQLDemo" -Location UKSouth
-New-AzureRmSqlServer -ResourceGroupName "SQLDemo" -Location "UKSouth" -ServerName "532test" -ServerVersion "12.0" -SqlAdministratorCredentials $cred
+# --- Already prepared earlier because it takes a while
+# --- New-AzureRmResourceGroup -Name "SQLDemo" -Location UKSouth
+# --- New-AzureRmSqlServer -ResourceGroupName "SQLDemo" -Location "UKSouth" -ServerName "532test" -ServerVersion "12.0" -SqlAdministratorCredentials $cred
 
 # --- Create a database
 New-AzureRmSqlDatabase -ResourceGroupName "SQLDemo" -ServerName "532test" -DatabaseName "Database01" -SampleName AdventureWorksLT
@@ -122,6 +125,8 @@ New-AzureRmSqlDatabase -ResourceGroupName "SQLDemo" -ServerName "532test" -Datab
 # --- Create a SQL Firewall Rule
 # --- Get current public IP
 $ip = Invoke-RestMethod http://ipinfo.io/json | Select-Object -ExpandProperty ip
+
+$ip
 
 # --- Create a SQL FirewallRule for the current IP
 New-AzureRmSqlServerFirewallRule -ResourceGroupName "SQLDemo" -ServerName "532test" `
