@@ -105,7 +105,7 @@ Set-AzureRmCurrentStorageAccount -ResourceGroupName "Azure101" -Name "storageacc
 New-AzureStorageContainer -Name test01
 
 # --- Rubbish error messages
-# --- Create a SQL Server which already exists in somebody elese's subscription
+# --- Create a SQL Server which already exists in somebody else's subscription
 $securePassword = ConvertTo-SecureString "SuperMario2017" -AsPlainText -Force
 $sqlCred = New-Object System.Management.Automation.PSCredential ("jmedd", $securePassword)
 New-AzureRmSqlServer -ResourceGroupName "Azure101" -Location "UKSouth" -ServerName "Server01" -ServerVersion "12.0" -SqlAdministratorCredentials $sqlCred
