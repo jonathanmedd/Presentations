@@ -104,7 +104,7 @@ $Token
 $vRAParams2 = @{
 
     Method = "GET"
-    Uri = "https://vraap07.vrademo.local/reservation-service/api/reservations?`$filter=name%20eq%20'Reservation01"
+    Uri = "https://vraap07.vrademo.local/reservation-service/api/reservations?`$filter=name%20eq%20'Reservation01'"
     Headers = @{
 
         "Accept"="application/json";
@@ -114,4 +114,5 @@ $vRAParams2 = @{
 }
 
 $vRAResponse2 = Invoke-RestMethod @vRAParams2
-$vRAResponse2
+
+$vRAResponse2.content
