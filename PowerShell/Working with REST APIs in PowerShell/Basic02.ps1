@@ -47,3 +47,13 @@ $Headers = @{
 }
 
 $Headers
+
+# --- Make the request
+$vROParams = @{
+
+    Method = 'GET'
+    Headers = $Headers
+    Uri = "https://vro03.vrademo.local/vco/api/workflows/?conditions=name=Test01"
+}
+
+Invoke-RestMethod @vROParams
