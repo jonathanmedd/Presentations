@@ -29,7 +29,7 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 
 # --- Basic Authentication
 # --- Get credentials
-$vROCredential = Get-Credential
+$vROCredential = Get-Credential -UserName 'jmedd@vrademo.local' -Message "Enter the password"
 
 $vROUsername = $vROCredential.UserName
 $vROConnectionPassword = $vROCredential.GetNetworkCredential().Password
@@ -66,7 +66,7 @@ $vROResponse
 $vROResponse.link.attributes | Sort-Object name | Select-Object name,value
 
 # --- Token authentication
-$vRACredential = Get-Credential
+$vRACredential = Get-Credential -UserName 'Tenantadmin01@vrademo.local' -Message "Enter the password"
 
 $vRAUsername = $vRACredential.UserName
 $vRAConnectionPassword = $vRACredential.GetNetworkCredential().Password
@@ -82,7 +82,7 @@ $Body = @"
 $vRAParams = @{
 
     Method = "POST"
-    Uri = "https://vraap08.vrademo.local/identity/api/tokens"
+    Uri = "https://vraap07.vrademo.local/identity/api/tokens"
     Headers = @{
         "Accept"="application/json";
         "Content-Type" = "application/json";
@@ -95,6 +95,23 @@ $vRAResponse = Invoke-RestMethod @vRAParams
 $vRAResponse
 
 # --- Get the token from the response
-$Token = $Response.id
+$Token = $vRAResponse.id
 
 $Token
+
+# --- Make a request using the token
+# --- 'Bearer' + a space + the token
+$vRAParams2 = @{
+
+    Method = "GET"
+    Uri = "https://vraap07.vrademo.local/reservation-service/api/reservations?`$filter=name%20eq%20'Reservation01"
+    Headers = @{
+
+        "Accept"="application/json";
+        "Content-Type" = "application/json";
+        "Authorization" = "Bearer $Token";
+    }
+}
+
+$vRAResponse2 = Invoke-RestMethod @vRAParams2
+$vRAResponse2
