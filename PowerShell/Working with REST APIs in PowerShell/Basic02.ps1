@@ -21,10 +21,13 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
 
 # --- Use TLS 1.2, otherwise it may default to use SSL 3.0
+# --- Current available
+[System.Net.ServicePointManager]::SecurityProtocol
+
+# --- Add TLS 1.2 - note this is for the whole PowerShell session
 [System.Net.ServicePointManager]::SecurityProtocol += [System.Net.SecurityProtocolType]::Tls12
 
 # --- Basic Authentication
-
 # --- Get credentials
 $vROCredential = Get-Credential
 
@@ -53,7 +56,11 @@ $vROParams = @{
 
     Method = 'GET'
     Headers = $Headers
-    Uri = "https://vro03.vrademo.local/vco/api/workflows/?conditions=name=Test01"
+    Uri = "https://vro03.vrademo.local:8281/vco/api/workflows/?conditions=name=Test01"
 }
 
-Invoke-RestMethod @vROParams
+$vROResponse = Invoke-RestMethod @vROParams
+
+$vROResponse
+
+$vROResponse.link.attributes | Sort-Object name | Select-Object name,value
