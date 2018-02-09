@@ -31,11 +31,11 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 # --- Get credentials
 $vROCredential = Get-Credential
 
-$Username = $vROCredential.UserName
-$ConnectionPassword = $vROCredential.GetNetworkCredential().Password
+$vROUsername = $vROCredential.UserName
+$vROConnectionPassword = $vROCredential.GetNetworkCredential().Password
 
 # --- Set Encoded Password
-$Auth = $Username + ':' + $ConnectionPassword
+$Auth = $vROUsername + ':' + $vROConnectionPassword
 $Encoded = [System.Text.Encoding]::UTF8.GetBytes($Auth)
 $EncodedPassword = [System.Convert]::ToBase64String($Encoded)
 
@@ -64,3 +64,37 @@ $vROResponse = Invoke-RestMethod @vROParams
 $vROResponse
 
 $vROResponse.link.attributes | Sort-Object name | Select-Object name,value
+
+# --- Token authentication
+$vRACredential = Get-Credential
+
+$vRAUsername = $vRACredential.UserName
+$vRAConnectionPassword = $vRACredential.GetNetworkCredential().Password
+
+$Body = @"
+{
+    "username":"$($vRAUsername)",
+    "password":"$($vRAConnectionPassword)",
+    "tenant":"Tenant01"
+}
+"@
+
+$vRAParams = @{
+
+    Method = "POST"
+    Uri = "https://vraap08.vrademo.local/identity/api/tokens"
+    Headers = @{
+        "Accept"="application/json";
+        "Content-Type" = "application/json";
+    }
+    Body = $Body
+}
+
+$vRAResponse = Invoke-RestMethod @vRAParams
+
+$vRAResponse
+
+# --- Get the token from the response
+$Token = $Response.id
+
+$Token
