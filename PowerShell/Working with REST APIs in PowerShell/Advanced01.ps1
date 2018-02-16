@@ -1,3 +1,4 @@
+# --- Referenced from https://get-powershellblog.blogspot.co.uk PowerShell Core Web Cmdlets Series
 # --- Strict Header Parsing
 $Params = @{
     Uri = 'http://httpbin.org/headers'
