@@ -56,7 +56,7 @@ $vROParams = @{
 
     Method = 'GET'
     Headers = $Headers
-    Uri = "https://vro03.vrademo.local:8281/vco/api/workflows/?conditions=name=Test01"
+    Uri = "https://vro02.vrademo.local:8281/vco/api/workflows/?conditions=name=Test01"
 }
 
 $vROResponse = Invoke-RestMethod @vROParams

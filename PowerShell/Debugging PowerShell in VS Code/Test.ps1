@@ -1,0 +1,1 @@
+1..10 | ForEach-Object {Write-Host "Hello World"}
