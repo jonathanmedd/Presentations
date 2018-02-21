@@ -52,7 +52,7 @@ Invoke-RestMethod -uri $uri -Authentication Basic -Credential $Credential
 # --- (Don't run this, just show the format)
 # --- Note, the token must be a SecureString
 $uri = 'https://httpbin.org/headers'
-$Token = Read-Host -AsSecureString -Prompt "Enter Beaer Token"
+$Token = Read-Host -AsSecureString -Prompt "Enter Bearer Token"
 Invoke-RestMethod -uri $uri -Authentication Bearer -Token $Token
 
 
@@ -139,7 +139,6 @@ $FirstPage = 'https://api.github.com/repos/powershell/powershell/issues'
 $Params = @{
     Uri                  = $FirstPage
     FollowRelLink        = $true
-    MaximumFollowRelLink = 50
 }
 $Results = Invoke-RestMethod @Params | ForEach-Object {$_}
 $Results.Count

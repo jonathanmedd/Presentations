@@ -12,7 +12,7 @@ Invoke-WebRequest -Uri $Uri | Select-Object -ExpandProperty 'RawContent'
 # --- Basic Parsing Only
 # --- 5.1 used IE's Rendering Engine
 # --- IE is not available on Linux or macOS
-# --- -UserBasicParsing parameter is now hidden and setting it
+# --- -UseBasicParsing parameter is now hidden and setting it
 # --- to true or false has no impact
 # --- The future is a new cmdlet ConvertFrom-Html, possibly in 6.1.0
 $Result = Invoke-WebRequest 'https://www.google.com'
