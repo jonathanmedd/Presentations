@@ -8,7 +8,7 @@ function Write-Item($itemCount) {
         Write-Output $str
 
         # In the gutter on the left, right click and select "Add Conditional Breakpoint"
-        # on the next line. Use the condition: $i -eq 25
+        # on the next line. Use the condition: $i % 10 -eq 0
         $i = $i + 1
 
         # Slow down execution a bit so user can test the "Pause debugger" feature.
