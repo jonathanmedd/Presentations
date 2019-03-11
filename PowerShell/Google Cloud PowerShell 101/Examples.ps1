@@ -90,4 +90,32 @@ Get-GceInstance | Remove-GceInstance
 # --- Ouch! P45 time :-)
 
 
+# --- Let's look at Networks
+# --- Create a new network with automatically generated subnets
+New-GceNetwork -Name "testJMAuto" -Project $project -AutoSubnet
+
+
+# --- Only allowed lowercase, no spaces!
+New-GceNetwork -Name "testjmauto" -Project $project -AutoSubnet
+
+
+# --- Get rid of that one
+Get-GceNetwork -Name "testjmauto" | Remove-GceNetwork
+
+
+# --- There's no way to create a custom network, only a legacy one
+New-GceNetwork -Name "testjmlegacy" -Project $project
+
+
+# --- Can only create the custom network via gcloud command line
+gcloud compute networks create testjmcustom --subnet-mode=custom
+
+# --- The again use gcloud to add subnets to it
+# --- Note the subnet spans a region, not a zone!
+# --- This is one of the differentiators from other clouds
+gcloud compute networks subnets create euw1 --network=testjmcustom --range=192.168.10.0/24 --region=europe-west1
+
+
+
+
 # --- Demo the provider
