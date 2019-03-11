@@ -116,6 +116,31 @@ gcloud compute networks create testjmcustom --subnet-mode=custom
 gcloud compute networks subnets create euw1 --network=testjmcustom --range=192.168.10.0/24 --region=europe-west1
 
 
+# --- Create a storage bucket
+New-GcsBucket -Name testjm9999 -StorageClass MULTI_REGIONAL -Location EU -DefaultObjectAcl PublicRead
+
+# --- Review the storage bucket
+Get-GcsBucket -Name testjm9999 | Format-List *
+
+# --- Copy a file into the bucket
+gsutil cp 'C:\Code\Presentations\PowerShell\Google Cloud PowerShell 101\helloworld.html' gs://testjm9999
 
 
-# --- Demo the provider
+# --- Remove the bucket
+Get-GcsBucket -Name testjm9999 | Remove-GcsBucket
+
+
+# --- Navigate Cloud Storage with PowerShell provider
+Set-Location gs:
+
+ls
+
+# --- Create a new bucket
+mkdir testjm8888
+
+dir
+
+# --- Remove the bucket
+del testjm8888
+
+dir
