@@ -1,0 +1,10 @@
+sudo apt-get update
+sudo apt-get install -y git apache2
+
+cd /var/www/html
+sudo rm index.html -f
+
+sudo git init
+sudo git pull https://github.com/roitraining/space-invaders.git
+
+ls
