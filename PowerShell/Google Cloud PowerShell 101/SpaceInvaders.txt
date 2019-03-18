@@ -1,3 +1,5 @@
+# --- Make sure you added the HTTP rule to the VM
+
 sudo apt-get update
 sudo apt-get install -y git apache2
 
