@@ -110,9 +110,8 @@ New-GceNetwork -Name "testjmlegacy" -Project $project
 # --- Can only create the custom network via gcloud command line
 gcloud compute networks create testjmcustom --subnet-mode=custom
 
-# --- The again use gcloud to add subnets to it
+# --- Then again use gcloud to add subnets to it
 # --- Note the subnet spans a region, not a zone!
-# --- This is one of the differentiators from other clouds
 gcloud compute networks subnets create euw1 --network=testjmcustom --range=192.168.10.0/24 --region=europe-west1
 
 
