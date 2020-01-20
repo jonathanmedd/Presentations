@@ -1,3 +1,6 @@
+# --- Make sure to start out in PS 5.1
+$PSVersionTable
+
 # --- Out-File
 $text = @"
 This is *line* 0
@@ -50,7 +53,10 @@ $text | Out-File -FilePath .\Data\Example6.txt
 # --- Create a file with UTF8NoBOM
 $Data = Get-Content .\Data\Example5.txt
 $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
-[System.IO.File]::WriteAllLines('C:\Users\Jonathan\Documents\Development\Presentations\PSDayUK\2017\Data\Example5.txt', $Data, $Utf8NoBomEncoding)
+[System.IO.File]::WriteAllLines('C:\Code\Presentations\PSDayUK\2017\Data\Example5.txt', $Data, $Utf8NoBomEncoding)
+
+# --- Clear the default encoding or the next example doesn't work for part 2)
+$PSDefaultParameterValues.Remove("Out-File:Encoding")
 
 # --- Out-File vs Set-Content - what's the difference?
 # --- 1) Locking. Out-File: another app can read the file, Set-Content another app cannot
@@ -61,3 +67,15 @@ Get-ChildItem | Set-Content .\Data\Dir2.txt
 
 # --- 4) Also some difference around empty file creation and additional parameters
 # --- https://stackoverflow.com/questions/10655788/powershell-set-content-and-out-file-what-is-the-difference
+
+
+# Switch to PS 7 and change to the right folder
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
+# --- Run the last example again and check the files
+Get-ChildItem | Out-File .\Data\Dir1.txt
+Get-ChildItem | Set-Content .\Data\Dir2.txt
+
+# --- Set a file with encoding UTF8BOM
+Get-ChildItem | Out-File .\Data\Dir1.txt -Encoding UTF8BOM
