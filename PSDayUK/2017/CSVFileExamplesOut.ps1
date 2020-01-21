@@ -1,3 +1,7 @@
+# --- Make sure to start out in PS 5.1
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
 # --- Export to CSV
 Get-Service | Select-Object Name,DisplayName,Status,StartType | Export-CSV .\Data\Example4.csv
 
@@ -17,3 +21,12 @@ whoami /GROUPS /FO CSV | ConvertFrom-Csv
 
 # --- If you need to go the opposite way use ConvertTo-CSV
 Get-Service | Select-Object Name,DisplayName,Status,StartType | ConvertTo-Csv
+
+# Switch to PS 7 and change to the right folder
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
+# --- Export to CSV again. No Type Information is now on by default
+Get-Service | Select-Object Name,DisplayName,Status,StartType | Export-CSV .\Data\Example4.csv
+
+Invoke-Item .\Data\Example4.csv

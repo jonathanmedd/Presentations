@@ -1,5 +1,6 @@
 # --- Make sure to start out in PS 5.1
 $PSVersionTable
+Set-Location .\PSDayUK\2017
 
 # --- Out-File
 $text = @"
