@@ -1,3 +1,7 @@
+# Switch to PS 5.1 and change to the right folder
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
 # --- Performance of changes with a large JSON dataset
 # --- ConvertFrom-JSON generates a PSCustomObject
 $JSON5 = @"
@@ -96,11 +100,28 @@ $JSON6 = @"
 }
 "@ | ConvertFrom-Json
 
+$JSON6.GetType()
+
 $Hash3 = $JSON6 | ConvertTo-Hashtable
 
 $Hash3
 
 $Hash3.GetType()
 
-# --- Add option to ConvertFrom-Json as a Hashtable has a milestone of PS Core 6.1
+# --- Add option to ConvertFrom-Json as a Hashtable has been implemented in PS Core
 # --- https://github.com/PowerShell/PowerShell/issues/3623
+# --- https://github.com/PowerShell/PowerShell/pull/5043
+
+# Switch to PS 7 and change to the right folder
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
+$JSON7 = @"
+{
+    "name":"Freddy",
+    "age":32,
+    "fruit":[ "Kiwi", "Orange" ]
+}
+"@ | ConvertFrom-Json -AsHashtable
+
+$JSON7.GetType()

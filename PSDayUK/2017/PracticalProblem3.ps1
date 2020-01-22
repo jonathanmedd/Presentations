@@ -1,3 +1,7 @@
+# Switch to PS 7 and change to the right folder
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
 # --- Tidy up check
 if (Get-Item .\Data\Example6.xlsx -ErrorAction SilentlyContinue) {Remove-Item .\Data\Example6.xlsx -Force -Confirm:$false}
 if (Get-Item .\Data\Example7.xlsx -ErrorAction SilentlyContinue) {Remove-Item .\Data\Example7.xlsx -Force -Confirm:$false}
@@ -13,13 +17,13 @@ Copy-ExcelWorkSheet -SourceWorkSheet 'Services' -SourceWorkbook .\Data\Example3.
 
 # --- Handle Number Formatting
 # --- No Number Formatting
-Get-CimInstance win32_logicaldisk -filter "drivetype=3" | 
-Select-Object DeviceID,Volumename,Size,Freespace | 
+Get-CimInstance win32_logicaldisk -filter "drivetype=3" |
+Select-Object DeviceID,Volumename,Size,Freespace |
 Export-Excel -Path .\Data\Example7.xlsx -Show -AutoSize
 
 # --- Set number format to 0 decimal places
-Get-CimInstance win32_logicaldisk -filter "drivetype=3" | 
-Select-Object DeviceID,Volumename,Size,Freespace | 
+Get-CimInstance win32_logicaldisk -filter "drivetype=3" |
+Select-Object DeviceID,Volumename,Size,Freespace |
 Export-Excel -Path .\Data\Example8.xlsx -Show -AutoSize -NumberFormat "0"
 
 # --- Set number format to a custom format to indicate percentages
@@ -33,9 +37,3 @@ $PercentageData = $(
 )
 
 $PercentageData | Export-Excel -Path .\Data\Example9.xlsx -Show -AutoSize -NumberFormat "0.0%;[Red]-0.0%"
-
-# --- Generate a spreadsheet with data from a table in Wikipedia
-# --- The cmdlet name is possibly a little misleading
-Start-Process 'chrome.exe' 'https://en.wikipedia.org/wiki/List_of_Buffy_the_Vampire_Slayer_episodes'
-
-Import-Html -URL 'https://en.wikipedia.org/wiki/List_of_Buffy_the_Vampire_Slayer_episodes' -Index 1

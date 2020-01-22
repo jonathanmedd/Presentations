@@ -1,3 +1,7 @@
+# Switch to PS 7 and change to the right folder
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
 # --- Look at the output from a text file
 # --- which doesn't support structured output
 # --- but in your mind you can see the pattern
