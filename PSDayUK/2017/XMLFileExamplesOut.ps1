@@ -1,3 +1,7 @@
+# Switch to PS 7 and change to the right folder
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
 # --- Save XML Doument to a file with Save method
 [xml]$XML4 = @'
 <breakfast_menu>
@@ -34,7 +38,7 @@
 </breakfast_menu>
 '@
 
-$XML4.Save('C:\Users\Jonathan\Documents\Development\Presentations\PSDayUK\2017\Data\Example3.xml')
+$XML4.Save('C:\Code\Presentations\PSDayUK\2017\Data\Example3.xml')
 
 # --- Make the Save method available via a function
 function Out-XML {
@@ -77,13 +81,13 @@ function Out-XML {
         $InputObject.Save($FilePath)
 
         # --- Output the result
-        Get-ChildItem -Path $FilePath 
+        Get-ChildItem -Path $FilePath
     }
 }
 
 
 # --- Use the Out-XML function to output to an XML file
-$XML4 | Out-XML -FilePath 'C:\Users\Jonathan\Documents\Development\Presentations\PSDayUK\2017\Data\Example4.xml'
+$XML4 | Out-XML -FilePath 'C:\Code\Presentations\PSDayUK\2017\Data\Example4.xml'
 
 # --- Update data in XML using XPath method
 $XML4.SelectSingleNode('//food[name="Strawberry Belgian Waffles"]')

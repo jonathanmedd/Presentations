@@ -1,3 +1,7 @@
+# Switch to PS 7 and change to the right folder
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
 # --- Export to Excel
 Get-Service | Select-Object Name,DisplayName,Status,StartType | Export-Excel -Path .\Data\Example2.xlsx -Show
 
@@ -16,7 +20,7 @@ $Chart = New-ExcelChart -Title Stats `
     -Header "Stuff" `
     -XRange "Processes[Company]" `
     -YRange "Processes[PM]","Processes[VirtualMemorySize]"
- 
+
 $ExcelParams = @{
 
     WorksheetName = 'Processes'

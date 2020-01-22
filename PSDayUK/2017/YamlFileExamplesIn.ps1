@@ -1,3 +1,7 @@
+# --- Make sure to start out in PS 5.1
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
 # --- Import data from a file and ConvertFrom-Yaml
 $YAML1 = Get-Content .\Data\Example1.yaml -Raw | ConvertFrom-Yaml
 $YAML1

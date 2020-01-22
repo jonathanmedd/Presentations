@@ -11,6 +11,8 @@ Invoke-Item .\Data\Example4.csv
 # --- Export to CSV with no Type Information
 Get-Service | Select-Object Name,DisplayName,Status,StartType | Export-CSV .\Data\Example5.csv -NoTypeInformation
 
+Invoke-Item .\Data\Example5.csv
+
 # --- What's ConvertFrom-CSV and ConvertTo-CSV? For working with CSV data within your PowerShell session
 
 # --- Use a native Windows tool to produce CSV output

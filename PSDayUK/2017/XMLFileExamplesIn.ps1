@@ -1,3 +1,7 @@
+# Switch to PS 7 and change to the right folder
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
 # --- What are the built in cmdlets for working with XML
 Get-Command *XML* -CommandType Cmdlet
 
@@ -18,6 +22,8 @@ $XML0 = Get-ChildItem .\Data | ConvertTo-Xml
 $XML0
 
 # --- Create an XML document object then load data from a file
+Invoke-Item .\Data\Example2.XML
+
 $XML1 = New-Object System.Xml.XmlDocument
 $XML1
 

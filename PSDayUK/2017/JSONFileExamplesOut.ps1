@@ -1,3 +1,7 @@
+# Switch to PS 7 and change to the right folder
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
 # --- Output to a JSON file
 Get-ChildItem * | ConvertTo-Json | Out-File .\Data\Example2.json
 
@@ -6,8 +10,8 @@ Get-ChildItem * | ConvertTo-Json | Out-File .\Data\Example2.json
 # --- Where the object has not been expanded
 Get-ChildItem * | ConvertTo-Json -Depth 3 | Out-File .\Data\Example3.json
 
-# --- It gets expanded to (107):
-<#                        
+# --- It gets expanded to (110):
+<#
 "Credential":  {
     "UserName":  null,
     "Password":  null

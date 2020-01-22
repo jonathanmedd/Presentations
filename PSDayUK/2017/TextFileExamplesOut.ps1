@@ -59,6 +59,8 @@ $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
 # --- Clear the default encoding or the next example doesn't work for part 2)
 $PSDefaultParameterValues.Remove("Out-File:Encoding")
 
+$PSDefaultParameterValues
+
 # --- Out-File vs Set-Content - what's the difference?
 # --- 1) Locking. Out-File: another app can read the file, Set-Content another app cannot
 # --- 2) Encoding (defaults). Out-File: UTF16, Set-Content: ANSI (Often Windows-1252)

@@ -1,3 +1,7 @@
+# Switch to PS 7 and change to the right folder
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
 # --- Read the contents of a text file
 Get-Content .\Data\Example1.txt
 
@@ -36,12 +40,12 @@ $b.Count
 # --- Examine the string length
 $b.Length
 
-# --- Consider not using Get-Content with very large files, because it reads the entire file into memory. 
+# --- Consider not using Get-Content with very large files, because it reads the entire file into memory.
 # --- Instead, read your file from disk one line at a time and work with each line
 # --- Instead of caching the entire file in RAM, you're reading it off disk one line at a time.
-$c = New-Object System.IO.StreamReader C:\Users\Jonathan\Documents\Development\Presentations\PSDayUK\2017\Data\Example1.txt
+$c = New-Object System.IO.StreamReader C:\Code\Presentations\PSDayUK\2017\Data\Example1.txt
 while ($line = $c.ReadLine()) {
-  
+
    $line -replace "This is line","We are at section"
 }
 $c.close()

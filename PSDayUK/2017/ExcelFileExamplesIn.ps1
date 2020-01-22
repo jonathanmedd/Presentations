@@ -1,3 +1,7 @@
+# Switch to PS 7 and change to the right folder
+$PSVersionTable
+Set-Location .\PSDayUK\2017
+
 # --- Examine what is available in the ImportExcel module
 Get-Command -Module ImportExcel
 
