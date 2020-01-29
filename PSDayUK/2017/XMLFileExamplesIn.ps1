@@ -51,7 +51,7 @@ $XML1.SelectNodes('//food[calories="900"]')
 # --- Expand the nodes
 $XML1 | Select-XML -XPath '//food' | Select-Object -ExpandProperty Node
 
-# --- Use Object Notation to navigate the XML tree
+# --- Use Object Dot Notation to navigate the XML tree
 $XML2.breakfast_menu.food
 
 $XML2.breakfast_menu.food[2]

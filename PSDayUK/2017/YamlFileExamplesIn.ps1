@@ -1,4 +1,4 @@
-# --- Make sure to start out in PS 5.1
+# --- Make sure to start out in PS 7
 $PSVersionTable
 Set-Location .\PSDayUK\2017
 
