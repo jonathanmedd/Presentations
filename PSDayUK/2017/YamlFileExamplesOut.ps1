@@ -10,6 +10,8 @@ $Data1  = [ordered]@{
     "nested"= @{"array"=@("this", "is", "an", "array")}
 }
 
+$Data1
+
 ConvertTo-Yaml $Data1
 
 # --- Output to a Yaml File
