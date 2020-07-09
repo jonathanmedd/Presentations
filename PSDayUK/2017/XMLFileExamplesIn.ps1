@@ -29,11 +29,11 @@ $XML1
 
 $XMLFile = Resolve-Path .\Data\Example2.XML
 $XML1.Load($XMLFile)
-$XML1
+$XML1.breakfast_menu.food
 
 # --- Or use the [xml] type accelerator
 [xml]$XML2 = Get-Content  .\Data\Example2.XML
-$XML2
+$XML2.breakfast_menu.food
 
 # --- Observe that we also have an object of type XmlDocument
 $XML2.GetType()

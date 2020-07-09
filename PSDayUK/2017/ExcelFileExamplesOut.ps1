@@ -27,6 +27,8 @@ $ExcelParams = @{
     Path = '.\Data\Example5.xlsx'
     AutoSize = $true
     Show = $true
+    TableName = 'Processes'
+    ExcelChartDefinition = $Chart
 }
 
-$Data | Export-Excel @ExcelParams -TableName Processes -ExcelChartDefinition $Chart
+$Data | Export-Excel @ExcelParams

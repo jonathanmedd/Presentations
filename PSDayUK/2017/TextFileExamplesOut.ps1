@@ -49,6 +49,8 @@ Set-Content -Path .\Data\Example5.txt -Value $text -Encoding UTF8
 
 # --- Set a default parameter value so that encoding is always UTF8
 $PSDefaultParameterValues["Out-File:Encoding"] = "UTF8"
+$PSDefaultParameterValues
+
 $text | Out-File -FilePath .\Data\Example6.txt
 
 # --- Create a file with UTF8NoBOM
@@ -77,6 +79,7 @@ $PSVersionTable
 Set-Location .\PSDayUK\2017
 
 # --- Run the last example again and check the files
+# --- Note the encoding type of Dir1.txt
 Get-ChildItem | Out-File .\Data\Dir1.txt
 Get-ChildItem | Set-Content .\Data\Dir2.txt
 

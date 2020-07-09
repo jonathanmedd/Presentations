@@ -11,7 +11,7 @@ if (Get-Item .\Data\Example9.xlsx -ErrorAction SilentlyContinue) {Remove-Item .\
 #--- Copy worksheet data from one spreadsheet to another
 Invoke-Item .\Data\Example3.xlsx
 
-Get-Service | Select-Object Name,DisplayName,Status,StartType | Export-Excel -WorkSheetname 'Services' -Path .\Data\Example6.xlsx -AutoSize
+Get-Service | Select-Object Name,DisplayName,Status,StartType | Export-Excel -WorkSheetname 'Services' -Path .\Data\Example6.xlsx -AutoSize -Show
 
 Copy-ExcelWorkSheet -SourceWorkSheet 'Services' -SourceWorkbook .\Data\Example3.xlsx -DestinationWorkSheet 'New Services Data' -DestinationWorkbook .\Data\Example6.xlsx -Show
 
